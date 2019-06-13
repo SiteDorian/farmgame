@@ -8,10 +8,28 @@
     <h1 class="my-4"> <center> <h1> This is your Land </h1> </center>
     </h1>
         <div class="col-md-2 panel panel-default">
-            <p> User name </p>
-            <p> Resources </p>
-            <p> Water </p>
-            <p> Money </p>
+            <p> <b>Your name:</b> <i> {{user.username}} </i> </p>
+            <p> <b> Resources </b> </p>
+            <p> Water: <i> {{water}} pcs. </i> </p>
+            <p> Money: <i> {{money}}$ </i> </p>
+            
+            <p> <b> In deposit: </b> </p>
+
+            {% for dep in deposit %}
+                <p> {{dep.plant.name}}: <i>{{dep.count}} </i> </p>
+            {% endfor %}
+
+            <p> <b> Options: </b> </p>
+            <p>
+                <a href="{{ path('game.water') }} " >
+                               <li> Buy water </li>
+                </a>
+            </p>
+            <p>
+                <a href="{{ path('game.sell_all') }} " >
+                               <li> Sell all stored resources from deposit </li>
+                </a>
+            </p>
         </div>
 
         <div class="col-md-8 panel panel-default land">

@@ -60,9 +60,17 @@ class Plant
      */
     private $cells;
 
+    /**
+     * @var Deposit[]|ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Deposit", mappedBy="plant")
+     */
+    private $deposits;
+
     public function __construct()
     {
         $this->cells = new ArrayCollection();
+        $this->deposits = new ArrayCollection();
     }
 
     /**

@@ -29,6 +29,14 @@ use Doctrine\ORM\Mapping as ORM;
      */
     private $cells;
 
+    /**
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="lands")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
+     */
+    private $user;
+
     public function __construct()
     {
         $this->cells = new ArrayCollection();
@@ -40,5 +48,32 @@ use Doctrine\ORM\Mapping as ORM;
     public function getId() : ?int
     {
         return $this->id;
+    }
+
+    /**
+     * @return Cell[]|ArrayCollection
+     */
+    public function getCells()
+    {
+        return $this->cells;
+    }
+
+    /**
+     * @return User
+     */
+    public function getUser() : ?User
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User $user
+     * 
+     * @return self
+     */
+    public function setUser($user) : self
+    {
+        $this->user=$user;
+        return $this;
     }
  }
