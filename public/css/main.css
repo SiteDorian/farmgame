@@ -1,0 +1,93 @@
+.btn-sq-lg {
+    width: 138px !important;
+    height: 138px !important;
+}
+
+.btn-sq {
+    width: 100px !important;
+    height: 100px !important;
+    font-size: 10px;
+}
+
+.btn-sq-sm {
+    width: 50px !important;
+    height: 50px !important;
+    font-size: 10px;
+}
+
+.btn-sq-xs {
+    width: 25px !important;
+    height: 25px !important;
+    padding: 2px;
+}
+
+.cell {
+    display: inline-block;
+    position: relative;
+}
+
+.img-cell {
+    display: block;
+    position: absolute;
+    max-width: 100px;
+    max-height: 100px;
+    opacity: 0.7;
+    z-index: 0;
+    padding: 10px 0;
+}
+
+a.link {
+    z-index: 1;
+    position: absolute;
+    top: 0px;
+    padding-left: 5px;
+    padding-right: 5px;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+a:hover,
+a:active {
+    background-color: gray;
+    color: white;
+}
+
+p.text {
+    position: absolute;
+    bottom: 0px;
+}
+
+#wait {
+    position: absolute;
+    top: 0;
+    left: 4px;
+}
+
+.img_container {
+    border: 1px solid gray;
+    padding: 4px 5px 5px;
+    margin-bottom: 5px;
+    max-width: 440px;
+}
+
+.img_container_image {
+        display: inline-block;
+        vertical-align: top;
+        width: 46%;
+        max-width: 100px;
+        max-height: 150px;
+        margin: 5px 8px 0 0;
+}
+
+.img_container_text {
+        display: inline-block;
+        width: 44%;
+        
+}
+
+div.land {
+    border: 3px solid gray;
+    padding: 10px;
+}

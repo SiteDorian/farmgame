@@ -1,0 +1,154 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+
+    <!-- Portfolio Item Heading -->
+    <h1 class="my-4"> <center> <h1> This is your Land </h1> </center>
+    </h1>
+        <div class="col-md-2 panel panel-default">
+            <p> User name </p>
+            <p> Resources </p>
+            <p> Water </p>
+            <p> Money </p>
+        </div>
+
+        <div class="col-md-8 panel panel-default land">
+            
+            
+            {% for cell in cells %}
+            <div class="cell btn btn-sq-lg btn-default">
+                <p class="text">
+                    {{cell.plant.name | default("") }}
+                </p>
+
+                {% if cell.stage == "0" %}
+                
+                        <a href="{{ path('game.click', {id: cell.id}) }} " class="link">
+                            Dig
+                        </a>
+
+                        {% if (cell.plant is null) %}
+                            <img src="{{asset('/images/sapa.jpg')}}" class="img-cell">
+                        {% endif %}
+                
+                {% elseif cell.stage == "1" %}
+                    <script>
+                            function redirectGame(sel)
+                            {
+                                var url = '{{ path('game.cultivate', {'plant': 'plantID', cell: cell.id}) }}';
+                                url = url.replace('plantID', sel);
+                                window.location.href = url;
+                            }
+                    </script>
+
+                    {# <select name="plant" onchange="window.location.href = '/game/cultivate/' + this.value +'/'+ {{cell.id}};"> #}
+                    <select name="plant" onchange="redirectGame(this.value) ;">
+                        <option selected="true" disabled="disabled">Cultivate</option>
+                        
+                        {% for plant in plants %}
+                            <option value="{{plant.id}}"> {{plant.name}} </option>
+                        {% endfor %}
+                    </select>
+
+                    {# <a href="#" class="link">
+                        Cultivate
+                    </a> #}
+
+                    {% if (cell.plant is null) %}
+                            <img src="{{asset('/images/seamana.jpg')}}" class="img-cell">
+                    {% endif %}
+
+                {% elseif cell.stage == "2" %}
+                    <a href="{{ path('game.click', {id: cell.id}) }}" class="link">
+                        Water
+                    </a>
+                {% elseif cell.stage == "3" %}
+                    <a href="{{ path('game.click', {id: cell.id}) }}" class="link">
+                        Water_2
+                    </a>  
+
+                {% elseif cell.stage == "4" %}
+                    
+                        <i id="wait">Wait</i>
+                    
+                    <script>
+                    function startTime(){
+                        var t = new Date('{{ cell.time|date('Y-m-d H:i:s') }}');
+                        var h = t.getHours();
+                        var m = t.getMinutes();
+                        var s = t.getSeconds();
+                        return [ h, m, s].join(':');
+                    }
+
+                    // Set the date we're counting down to
+                    var countDownDate = new Date('{{ cell.time|date('Y-m-d H:i:s') }}');
+                    countDownDate.setSeconds(countDownDate.getSeconds() + {{cell.plant.time }} );
+
+                    // Update the count down every 1 second
+                    var x = setInterval(function() {
+
+                    // Get today's date and time
+                    var now = new Date().getTime();
+                        
+                    // Find the distance between now and the count down date
+                    var distance = countDownDate - now;
+
+                    // If the count down is over, redirect url
+                    if (distance < 60) {
+                        clearInterval(x);
+                        var url = '{{ path('game.timer', {id: cell.id}) }}';
+                        window.location.href = url;
+                    } else {
+                        // Time calculations for days, hours, minutes and seconds
+                        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                            
+                        // Output the result in an element with id="demo"
+                        document.getElementById("wait").innerHTML = "Wait: " + hours + "h "
+                        + minutes + "m " + seconds + "s ";                              
+                    }
+                    
+                    }, 1000);
+                    </script>
+
+                {% elseif cell.stage == "5" %}
+                    <a href="{{ path('game.collect', {id: cell.id}) }}" class="link">
+                        <b>Collect</b>
+                    </a>    
+                
+                {% endif %}
+                
+
+                
+                   {% if (cell.plant.img is defined) and (cell.plant.img is not null) %}
+                        <img src="{{cell.plant.img}}" class="img-cell">
+                    {% endif %}
+                
+            </div>
+            {% endfor %}
+            
+
+        </div>
+
+        <div class="col-md-2 panel panel-default">
+            
+            
+                <h5> Available Plants ty boy </h5>
+                {% for plant in plants %}
+                    <div class="img_container">
+                        <img class="img_container_image" src="{{plant.img}}" />
+                        <div class="img_container_text">
+                            <p>Name: <b><i>{{plant.name}}</i></b><p>
+                            <p>Cost: {{plant.price_buy}}<p>
+                            <p>Selling price: {{plant.price_sell}}<p>
+                            <p>Growth time: {{plant.time}} <i> sec. </i><p>
+                        </div>
+                    </div> 
+                {% endfor %}
+            
+        </div>
+
+{% endblock %}
